@@ -1,0 +1,1 @@
+ALTER TABLE `shoppinglist` ADD `isWeekly` integer DEFAULT true NOT NULL;

@@ -2,6 +2,7 @@ import { db } from '@/db';
 import { shoppinglist } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 
 export async function GET(request: Request) {
   // Protect the endpoint so randoms on the internet can't trigger it
@@ -14,6 +15,8 @@ export async function GET(request: Request) {
     .update(shoppinglist)
     .set({ active: true })
     .where(eq(shoppinglist.isWeekly, true));
+
+  revalidatePath('/');
 
   return NextResponse.json({ success: true });
 }

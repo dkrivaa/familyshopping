@@ -6,13 +6,19 @@ import { eq, desc } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 //Add item to shoppinglist
-export async function addItem(product: string, active: boolean, isWeekly: boolean, quantity?: number) {
+export async function addItem(
+  product: string, 
+  active: boolean, 
+  isWeekly: boolean, 
+  quantity?: number,
+  barcode?: number) {
     
     await db.insert(shoppinglist).values({
         product,
         active: true,
         isWeekly,
         quantity,
+        barcode,
     })
 
     revalidatePath("/")

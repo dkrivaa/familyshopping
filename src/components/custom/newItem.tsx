@@ -25,7 +25,7 @@ const itemSchema = z.object({
     .number()
     .positive()
     .refine((val) => Number(val.toFixed(2)) === val),
-  barcode: z.number().nullable,
+  barcode: z.number().nullable(),
 });
 
 interface NewItemProps {
@@ -69,6 +69,7 @@ export default function NewItem({ onSubmit }: NewItemProps) {
       active,
       result.data.weekly,
       result.data.qty,
+      result.data.barcode ?? 0
     );
 
     setMessage(`Added ${result.data.item} to shoppinglist`);

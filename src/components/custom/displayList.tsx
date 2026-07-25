@@ -7,13 +7,11 @@ import {
   toggleActive,
   toggleIsWeekly,
   updateQuantity,
+  updateBarcode,
   deleteItem,
 } from "@/app/actions/shoppinglist";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Field,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldLabel } from "@/components/ui/field";
 import {
   Drawer,
   DrawerTrigger,
@@ -33,6 +31,7 @@ type ShoppingItem = {
   id: number;
   product: string;
   quantity: number;
+  barcode: number | null;
   active: boolean;
   isWeekly: boolean;
   createdAt: Date;
@@ -44,21 +43,25 @@ export default function DisplayList({ items }: { items: ShoppingItem[] }) {
   // track which item's popover is open + form state per open popover
   const [openId, setOpenId] = useState<number | null>(null);
   const [name, setName] = useState("");
+  const [bcode, setBcode] = useState<number | null>(null);
   const [active, setActive] = useState<boolean>(false);
   const [isWeekly, setIsWeekly] = useState<boolean>(false);
 
   const [newName, setNewName] = useState<string>("");
   const [newQuantity, setNewQuantity] = useState<number>(1);
+  const [newBarcode, setNewBarcode] = useState<number | null>(null);
   const [deleteProduct, setDeleteProduct] = useState<boolean>(false);
 
   function openEdit(item: ShoppingItem) {
     setOpenId(item.id);
     setName(item.product);
+    setBcode(item.barcode);
     setActive(item.active);
     setIsWeekly(item.isWeekly);
 
     setNewName(item.product);
     setNewQuantity(item.quantity);
+    setNewBarcode(item.barcode);
   }
 
   // Remove item from active list (i.e item in cart)
@@ -89,6 +92,14 @@ export default function DisplayList({ items }: { items: ShoppingItem[] }) {
     if (!openId || !newQuantity) return;
     await updateQuantity(openId, newQuantity);
     setNewQuantity(1);
+    setDrawerOpen(false);
+  }
+
+  // Update barcode
+  async function handleUpdateBarcode() {
+    if (!openId || !newBarcode) return;
+    await updateBarcode(openId, newBarcode);
+    setNewBarcode(null);
     setDrawerOpen(false);
   }
 
@@ -177,6 +188,19 @@ export default function DisplayList({ items }: { items: ShoppingItem[] }) {
                       />
                       <Button onClick={handleUpdateQuantity}>
                         update quantity
+                      </Button>
+                    </Field>
+                    <Field>
+                      <FieldLabel htmlFor="barcode">update barcode</FieldLabel>
+                      <Input
+                        id="barcode"
+                        type="number"
+                        inputMode="numeric"
+                        value={String(bcode) ?? null}
+                        onChange={(e) => setNewBarcode(Number(e.target.value))}
+                      />
+                      <Button onClick={handleUpdateBarcode}>
+                        update barcode
                       </Button>
                     </Field>
                     <Field orientation="horizontal">

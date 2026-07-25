@@ -77,6 +77,14 @@ export async function updateQuantity(id: number, quantity: number) {
   revalidatePath('/');
 }
 
+// UPDATE - edit barcode
+export async function updateBarcode(id: number, barcode: number) {
+  await db
+    .update(shoppinglist)
+    .set({ barcode })
+    .where(eq(shoppinglist.id, id));
+}
+
 
 // DELETE
 export async function deleteItem(id: number) {

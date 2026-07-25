@@ -196,7 +196,7 @@ export default function DisplayList({ items }: { items: ShoppingItem[] }) {
                         id="barcode"
                         type="number"
                         inputMode="numeric"
-                        value={String(bcode)}
+                        value={String(newBarcode)}
                         onChange={(e) => setNewBarcode(Number(e.target.value))}
                       />
                       <Button onClick={handleUpdateBarcode}>

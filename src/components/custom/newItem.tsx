@@ -69,7 +69,7 @@ export default function NewItem({ onSubmit }: NewItemProps) {
       active,
       result.data.weekly,
       result.data.qty,
-      result.data.barcode ?? 0
+      result.data.barcode ?? 0,
     );
 
     setMessage(`Added ${result.data.item} to shoppinglist`);
@@ -110,13 +110,14 @@ export default function NewItem({ onSubmit }: NewItemProps) {
               <QuantitySelect id="quantity" value={qty} onChange={setQty} />
             </Field>
             <Field>
-                <FieldLabel htmlFor="barcode">Barcode</FieldLabel>
-                <Input 
-                    id="barcode"
-                    type="number"
-                    inputMode="numeric"
-                    value={String(barcode) ?? null}
-                    onChange={(e) => setBarcode(Number(e.target.value))}/>
+              <FieldLabel htmlFor="barcode">Barcode</FieldLabel>
+              <Input
+                id="barcode"
+                type="number"
+                inputMode="numeric"
+                value={String(barcode) ?? null}
+                onChange={(e) => setBarcode(Number(e.target.value))}
+              />
             </Field>
             <div className="flex items-center justify-between">
               <FieldLabel htmlFor="weekly">Repeat weekly</FieldLabel>

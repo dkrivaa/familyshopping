@@ -81,7 +81,7 @@ export default function NewItem({ onSubmit }: NewItemProps) {
     setItem("");
     setWeekly(false);
     setQty(1);
-    setBarcode(0);
+    setBarcode(null);
   }
 
   return (

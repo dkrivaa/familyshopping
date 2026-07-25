@@ -6,6 +6,7 @@ export const shoppinglist = sqliteTable("shoppinglist", {
   quantity: real("quantity").notNull().default(1),
   active: integer("active", { mode: "boolean" }).notNull().default(true),
   isWeekly: integer("isWeekly", { mode: "boolean" }).notNull().default(true),
+  barcode: integer("barcode"),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .$defaultFn(() => new Date()),

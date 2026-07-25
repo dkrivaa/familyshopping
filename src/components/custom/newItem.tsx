@@ -43,7 +43,7 @@ export default function NewItem({ onSubmit }: NewItemProps) {
   const [active, setActive] = useState<boolean>(true);
   const [weekly, setWeekly] = useState<boolean>(false);
   const [qty, setQty] = useState<number>(1);
-  const [barcode, setBarcode] = useState<number>(0);
+  const [barcode, setBarcode] = useState<number | null>(null);
 
   const [error, setError] = useState<string | null>(null);
 
@@ -114,7 +114,8 @@ export default function NewItem({ onSubmit }: NewItemProps) {
                 <Input 
                     id="barcode"
                     type="number"
-                    value={barcode}
+                    inputMode="numeric"
+                    value={String(barcode) ?? null}
                     onChange={(e) => setBarcode(Number(e.target.value))}/>
             </Field>
             <div className="flex items-center justify-between">

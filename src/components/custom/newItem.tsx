@@ -34,6 +34,7 @@ interface NewItemProps {
     active: boolean,
     isWeekly: boolean,
     quantity: number,
+    barcode: number,
   ) => Promise<void>;
 }
 
